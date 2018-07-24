@@ -8,22 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		184E1A02210648DF00A0EE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A01210648DF00A0EE84 /* AppDelegate.swift */; };
-		184E1A04210648DF00A0EE84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A03210648DF00A0EE84 /* ViewController.swift */; };
 		184E1A07210648DF00A0EE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184E1A05210648DF00A0EE84 /* Main.storyboard */; };
 		184E1A0A210648DF00A0EE84 /* TimePlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A08210648DF00A0EE84 /* TimePlay.xcdatamodeld */; };
 		184E1A0C210648E000A0EE84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184E1A0B210648E000A0EE84 /* Assets.xcassets */; };
 		184E1A0F210648E000A0EE84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184E1A0D210648E000A0EE84 /* LaunchScreen.storyboard */; };
+		184E1A1A21064A0400A0EE84 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 184E1A1921064A0400A0EE84 /* logo.png */; };
+		184E1A1C21066F9A00A0EE84 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A1B21066F9A00A0EE84 /* LoginViewController.swift */; };
+		184E1A1E21066FB600A0EE84 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A1D21066FB600A0EE84 /* SignUpViewController.swift */; };
+		184E1A2021066FCC00A0EE84 /* RecoveryEmailEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A1F21066FCC00A0EE84 /* RecoveryEmailEnterViewController.swift */; };
+		184E1A2221066FDC00A0EE84 /* RecoveryCodeEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A2121066FDC00A0EE84 /* RecoveryCodeEnterViewController.swift */; };
+		184E1A2421066FF500A0EE84 /* RecoveryPasswordEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A2321066FF500A0EE84 /* RecoveryPasswordEnterViewController.swift */; };
+		184E1A262106E0D400A0EE84 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1A252106E0D400A0EE84 /* Validations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		184E19FE210648DF00A0EE84 /* TimePlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimePlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		184E1A01210648DF00A0EE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		184E1A03210648DF00A0EE84 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		184E1A06210648DF00A0EE84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		184E1A09210648DF00A0EE84 /* TimePlay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimePlay.xcdatamodel; sourceTree = "<group>"; };
 		184E1A0B210648E000A0EE84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		184E1A0E210648E000A0EE84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		184E1A10210648E000A0EE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		184E1A1921064A0400A0EE84 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		184E1A1B21066F9A00A0EE84 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		184E1A1D21066FB600A0EE84 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		184E1A1F21066FCC00A0EE84 /* RecoveryEmailEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryEmailEnterViewController.swift; sourceTree = "<group>"; };
+		184E1A2121066FDC00A0EE84 /* RecoveryCodeEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryCodeEnterViewController.swift; sourceTree = "<group>"; };
+		184E1A2321066FF500A0EE84 /* RecoveryPasswordEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPasswordEnterViewController.swift; sourceTree = "<group>"; };
+		184E1A252106E0D400A0EE84 /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +52,8 @@
 		184E19F5210648DF00A0EE84 = {
 			isa = PBXGroup;
 			children = (
+				184E1A252106E0D400A0EE84 /* Validations.swift */,
+				184E1A162106490900A0EE84 /* Images */,
 				184E1A00210648DF00A0EE84 /* TimePlay */,
 				184E19FF210648DF00A0EE84 /* Products */,
 			);
@@ -57,14 +71,26 @@
 			isa = PBXGroup;
 			children = (
 				184E1A01210648DF00A0EE84 /* AppDelegate.swift */,
-				184E1A03210648DF00A0EE84 /* ViewController.swift */,
 				184E1A05210648DF00A0EE84 /* Main.storyboard */,
+				184E1A1B21066F9A00A0EE84 /* LoginViewController.swift */,
+				184E1A1D21066FB600A0EE84 /* SignUpViewController.swift */,
+				184E1A1F21066FCC00A0EE84 /* RecoveryEmailEnterViewController.swift */,
+				184E1A2121066FDC00A0EE84 /* RecoveryCodeEnterViewController.swift */,
+				184E1A2321066FF500A0EE84 /* RecoveryPasswordEnterViewController.swift */,
 				184E1A0B210648E000A0EE84 /* Assets.xcassets */,
 				184E1A0D210648E000A0EE84 /* LaunchScreen.storyboard */,
 				184E1A10210648E000A0EE84 /* Info.plist */,
 				184E1A08210648DF00A0EE84 /* TimePlay.xcdatamodeld */,
 			);
 			path = TimePlay;
+			sourceTree = "<group>";
+		};
+		184E1A162106490900A0EE84 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				184E1A1921064A0400A0EE84 /* logo.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +153,7 @@
 			files = (
 				184E1A0F210648E000A0EE84 /* LaunchScreen.storyboard in Resources */,
 				184E1A0C210648E000A0EE84 /* Assets.xcassets in Resources */,
+				184E1A1A21064A0400A0EE84 /* logo.png in Resources */,
 				184E1A07210648DF00A0EE84 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,9 +165,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				184E1A04210648DF00A0EE84 /* ViewController.swift in Sources */,
+				184E1A1C21066F9A00A0EE84 /* LoginViewController.swift in Sources */,
 				184E1A02210648DF00A0EE84 /* AppDelegate.swift in Sources */,
+				184E1A262106E0D400A0EE84 /* Validations.swift in Sources */,
+				184E1A2421066FF500A0EE84 /* RecoveryPasswordEnterViewController.swift in Sources */,
 				184E1A0A210648DF00A0EE84 /* TimePlay.xcdatamodeld in Sources */,
+				184E1A2221066FDC00A0EE84 /* RecoveryCodeEnterViewController.swift in Sources */,
+				184E1A1E21066FB600A0EE84 /* SignUpViewController.swift in Sources */,
+				184E1A2021066FCC00A0EE84 /* RecoveryEmailEnterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
