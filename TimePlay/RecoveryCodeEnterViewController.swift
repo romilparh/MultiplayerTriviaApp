@@ -17,5 +17,11 @@ class RecoveryCodeEnterViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    // To toggle software keyboard when clicked outside the keyboard
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+        self.view.endEditing(true)
+    }
 
 }
