@@ -11,6 +11,8 @@ import MessageUI
 
 class RecoveryEmailEnterViewController: UIViewController {
 
+    // HAVE TO ADD A CHECK IF THE USER IS REGISTERED THROUGH DATABASE IN THIS VIEW !!
+    
     var eMailEnteredByUser: String = ""
     var recoveryInteger: Int = 1000
     var recoveryGrid: Int = 0
