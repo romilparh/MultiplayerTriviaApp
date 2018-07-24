@@ -236,11 +236,17 @@
                                 <state key="normal" title="Send Recovery Code">
                                     <color key="titleColor" red="0.54117647059999996" green="0.32549019610000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendRecoveryEMail:" destination="8Dy-UT-eFm" eventType="touchUpInside" id="aDN-UD-15y"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gTT-PA-Eva"/>
                     </view>
+                    <connections>
+                        <outlet property="eMailEntered" destination="lTj-D8-jLo" id="QM9-cs-lrE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lom-A8-5WS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -363,6 +369,6 @@
         <image name="logo.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KGM-Az-PrP"/>
+        <segue reference="9xJ-P5-Pfw"/>
     </inferredMetricsTieBreakers>
 </document>
