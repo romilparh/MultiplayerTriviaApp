@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class LoginViewController: UIViewController {
     
@@ -17,10 +19,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var rememberMe: UISwitch!
     
+    var fbRef:DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.fbRef = Database.database().reference()
+        checkQuizTime()
+        getQuestions()
     }
     
     // To toggle software keyboard when clicked outside the keyboard
@@ -33,4 +40,30 @@ class LoginViewController: UIViewController {
         
     }
 
+    func checkQuizTime() {
+        self.fbRef.child("quiz_time").observe(DataEventType.value, with: {
+            (snapshot) in
+            let x = snapshot.value as! [String:Any]
+            
+            let u = x["message"]
+            let m = x["shoul_play"]
+            
+            print("message = \(u!), shoul_play = \(m!)")
+            
+        })
+    }
+    
+    func getQuestions() {
+        self.fbRef.child("questions").observe(DataEventType.value, with: {
+            (snapshot) in
+            
+            for snap in snapshot.children {
+                let x = snap as! DataSnapshot
+                let u = x.key
+                let m = x.value as! [String:Any]
+                
+                print("message = \(u), shoul_play = \(m["answer"])")
+            }
+        })
+    }
 }
