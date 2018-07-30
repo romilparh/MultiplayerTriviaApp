@@ -44,12 +44,27 @@ class QuizViewController: UIViewController {
         self.fbRef.child("questions").observe(DataEventType.value, with: {
             (snapshot) in
             
+            var questionModelArray = [QuestionModel]()
+            
             for snap in snapshot.children {
-                let x = snap as! DataSnapshot
-                let u = x.key
-                let m = x.value as! [String:Any]
+                let response = snap as! DataSnapshot
+                //                    let u = x.key
+                //                    let m = x.value as! [String:Any]
+                //                    print("question key = \(u), question value = \(m)")
                 
-                print("question key = \(u), question value = \(m["answer"])")
+                let question = response.childSnapshot(forPath: "question").value as! String
+                let option1 = response.childSnapshot(forPath: "option_1").value as! String
+                let option2 = response.childSnapshot(forPath: "option_2").value as! String
+                let option3 = response.childSnapshot(forPath: "option_3").value as! String
+                let option4 = response.childSnapshot(forPath: "option_4").value as! String
+                let correctAnswer = response.childSnapshot(forPath: "answer").value as! String
+                
+                questionModelArray.append(QuestionModel(question: question, option1: option1, option2: option2, option3: option3, option4: option4, correctAnswer: correctAnswer))
+                
+            }
+            for i in 0..<questionModelArray.count {
+                print("question = " + questionModelArray[i].question
+                    + ", correctAnswer = " + questionModelArray[i].correctAnswer)
             }
         })
     }
@@ -71,5 +86,24 @@ class QuizViewController: UIViewController {
         // Pass the selected object to the new view controller.
         let resultViewConroller = segue.destination as! ResultViewController
         resultViewConroller.gameId = self.gameId
+    }
+    
+    class QuestionModel {
+        public private(set) var question: String
+        public private(set) var option1: String
+        public private(set) var option2: String
+        public private(set) var option3: String
+        public private(set) var option4: String
+        public private(set) var correctAnswer: String
+        
+        init(question: String, option1: String, option2: String,
+             option3: String, option4: String, correctAnswer: String) {
+            self.question = question
+            self.option1 = option1
+            self.option2 = option2
+            self.option3 = option3
+            self.option4 = option4
+            self.correctAnswer = correctAnswer
+        }
     }
 }
