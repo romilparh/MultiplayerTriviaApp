@@ -19,13 +19,14 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.fbRef = Database.database().reference()
+        print("gameid r = " + self.gameId!)
+        resultObserver()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        self.fbRef = Database.database().reference()
-        resultObserver()
     }
     
 
@@ -43,7 +44,7 @@ class ResultViewController: UIViewController {
         self.fbRef.child(self.gameId!)
             .queryOrdered(byChild: "correct_count")
             //            .queryOrdered(byChild: "date_time")
-            .queryLimited(toFirst: 10)
+            .queryLimited(toFirst: 5)
             .observe(DataEventType.value, with: {
                 (snapshot) in
                 

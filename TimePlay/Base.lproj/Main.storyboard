@@ -39,6 +39,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="rak-7o-eIH"/>
                     </view>
+                    <connections>
+                        <segue destination="CIC-s1-9JC" kind="show" identifier="quizToResultIdentifier" id="NSI-MV-ORD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9S-1Y-NYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
