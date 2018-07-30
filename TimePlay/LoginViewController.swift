@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var rememberMe: UISwitch!
     
     var fbRef:DatabaseReference!
+    var gameId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,9 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginUser(_ sender: UIButton) {
+        let x = ["username": "chitrang@gmail.com" , "correct_count": 7 , "date_time": ServerValue.timestamp()] as [String : Any]
         
+        self.fbRef.child(self.gameId!).childByAutoId().setValue(x)
     }
 
     func checkQuizTime() {
@@ -47,8 +50,10 @@ class LoginViewController: UIViewController {
             
             let u = x["message"]
             let m = x["shoul_play"]
+            self.gameId = x["game_id"] as? String
             
             print("message = \(u!), shoul_play = \(m!)")
+            self.resultObserver()
             
         })
     }
@@ -62,7 +67,25 @@ class LoginViewController: UIViewController {
                 let u = x.key
                 let m = x.value as! [String:Any]
                 
-                print("message = \(u), shoul_play = \(m["answer"])")
+                print("question key = \(u), question value = \(m["answer"])")
+            }
+        })
+    }
+    
+    func resultObserver() {
+        self.fbRef.child(self.gameId!)
+            .queryOrdered(byChild: "correct_count")
+//            .queryOrdered(byChild: "date_time")
+            .queryLimited(toFirst: 10)
+            .observe(DataEventType.value, with: {
+            (snapshot) in
+            
+            for snap in snapshot.children {
+                let x = snap as! DataSnapshot
+                let u = x.key
+                let m = x.value as! [String:Any]
+                
+                print("result key = \(u), result value = \(m)")
             }
         })
     }
