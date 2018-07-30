@@ -27,8 +27,6 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.fbRef = Database.database().reference()
-        checkQuizTime()
-        getQuestions()
     }
     
     // To toggle software keyboard when clicked outside the keyboard
@@ -38,55 +36,53 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginUser(_ sender: UIButton) {
-        let x = ["username": "chitrang@gmail.com" , "correct_count": 7 , "date_time": ServerValue.timestamp()] as [String : Any]
-        
-        self.fbRef.child(self.gameId!).childByAutoId().setValue(x)
+        if(eMail.text?.isEmpty)! {
+            showAlertMessage(title: "Error", message: "Enter username")
+        } else {
+            checkQuizTime()
+        }
     }
 
     func checkQuizTime() {
         self.fbRef.child("quiz_time").observe(DataEventType.value, with: {
             (snapshot) in
-            let x = snapshot.value as! [String:Any]
-            
-            let u = x["message"]
-            let m = x["shoul_play"]
-            self.gameId = x["game_id"] as? String
-            
-            print("message = \(u!), shoul_play = \(m!)")
-            self.resultObserver()
-            
-        })
-    }
-    
-    func getQuestions() {
-        self.fbRef.child("questions").observe(DataEventType.value, with: {
-            (snapshot) in
-            
-            for snap in snapshot.children {
-                let x = snap as! DataSnapshot
-                let u = x.key
-                let m = x.value as! [String:Any]
-                
-                print("question key = \(u), question value = \(m["answer"])")
+            if let response = snapshot.value as? [String: AnyObject] {
+                let shouldStartPlay = response["should_start_play"] as! String
+                let message = response["message"] as! String
+                print("shouldStartPlay = " + shouldStartPlay)
+                self.gameId = response["game_id"] as? String
+                print("gameid = " + self.gameId!)
+                if(shouldStartPlay == "1") {
+                    self.performSegue(withIdentifier: "loginToQuizIdentifier", sender: self)
+                    
+                } else {
+                    self.showAlertMessage(title: "Game Error:", message: message)
+                }
+            } else {
+                print("Error retrieving data") // snapshot value is nil
             }
         })
     }
     
-    func resultObserver() {
-        self.fbRef.child(self.gameId!)
-            .queryOrdered(byChild: "correct_count")
-//            .queryOrdered(byChild: "date_time")
-            .queryLimited(toFirst: 10)
-            .observe(DataEventType.value, with: {
-            (snapshot) in
-            
-            for snap in snapshot.children {
-                let x = snap as! DataSnapshot
-                let u = x.key
-                let m = x.value as! [String:Any]
-                
-                print("result key = \(u), result value = \(m)")
-            }
-        })
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        let quizViewConroller = segue.destination as! QuizViewController
+        quizViewConroller.gameId = self.gameId
+        quizViewConroller.userName = self.eMail.text
+    }
+    
+    func showAlertMessage(title: String, message: String) {
+        //Creating UIAlertController and
+        //Setting title and message for the alert dialog
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
     }
 }

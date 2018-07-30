@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class ResultViewController: UIViewController {
 
+    var fbRef:DatabaseReference!
+    var gameId: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +24,8 @@ class ResultViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        self.fbRef = Database.database().reference()
+        resultObserver()
     }
     
 
@@ -32,4 +39,21 @@ class ResultViewController: UIViewController {
     }
     */
 
+    func resultObserver() {
+        self.fbRef.child(self.gameId!)
+            .queryOrdered(byChild: "correct_count")
+            //            .queryOrdered(byChild: "date_time")
+            .queryLimited(toFirst: 10)
+            .observe(DataEventType.value, with: {
+                (snapshot) in
+                
+                for snap in snapshot.children {
+                    let x = snap as! DataSnapshot
+                    let u = x.key
+                    let m = x.value as! [String:Any]
+                    
+                    print("result key = \(u), result value = \(m)")
+                }
+            })
+    }
 }

@@ -23,14 +23,18 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Quiz" id="OF4-ls-wqk">
-                                        <barButtonItem key="rightBarButtonItem" title="Result" id="uJi-w0-EVw">
-                                            <connections>
-                                                <segue destination="CIC-s1-9JC" kind="show" id="0im-Yg-Qtz"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Result" id="uJi-w0-EVw"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ec-Jf-3ob">
+                                <rect key="frame" x="136" y="555" width="49" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="onClickSubmitAnswer:" destination="UjP-bb-a4s" eventType="touchUpInside" id="YDL-Jz-YUc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="rak-7o-eIH"/>
@@ -38,7 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9S-1Y-NYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1287" y="-2087"/>
+            <point key="canvasLocation" x="-1287" y="-2121"/>
         </scene>
         <!--Result View Controller-->
         <scene sceneID="e4z-HU-CSS">
@@ -62,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kr8-gB-A9S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-575" y="-2091"/>
+            <point key="canvasLocation" x="-561" y="-2122"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -97,7 +101,6 @@
                                 </state>
                                 <connections>
                                     <action selector="loginUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wlt-Eg-34b"/>
-                                    <segue destination="UjP-bb-a4s" kind="show" id="8Gd-AZ-1lm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Cs-zX-TZV">
@@ -148,11 +151,12 @@
                         <outlet property="eMail" destination="Dpn-cL-cuh" id="jO6-qu-hHo"/>
                         <outlet property="password" destination="eLd-AS-Rpe" id="WXU-j4-9bv"/>
                         <outlet property="rememberMe" destination="jHq-4N-N4I" id="hdE-Nx-8iR"/>
+                        <segue destination="UjP-bb-a4s" kind="show" identifier="loginToQuizIdentifier" id="Br4-9H-QdL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1286" y="-1313"/>
+            <point key="canvasLocation" x="-1306" y="-1314"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="CVf-fc-aJt">
