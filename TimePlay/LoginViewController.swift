@@ -54,7 +54,6 @@ class LoginViewController: UIViewController {
                 print("gameid = " + self.gameId!)
                 if(shouldStartPlay == "1") {
                     self.performSegue(withIdentifier: "loginToQuizIdentifier", sender: self)
-                    
                 } else {
                     self.showAlertMessage(title: "Game Error:", message: message)
                 }

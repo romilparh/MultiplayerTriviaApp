@@ -43,18 +43,42 @@ class ResultViewController: UIViewController {
     func resultObserver() {
         self.fbRef.child(self.gameId!)
             .queryOrdered(byChild: "correct_count")
-            //            .queryOrdered(byChild: "date_time")
-            .queryLimited(toFirst: 5)
-            .observe(DataEventType.value, with: {
+                        .observe(DataEventType.value, with: {
                 (snapshot) in
-                
+                var resultModelArray = [ResultModel]()
+                            
                 for snap in snapshot.children {
-                    let x = snap as! DataSnapshot
-                    let u = x.key
-                    let m = x.value as! [String:Any]
+                    let response = snap as! DataSnapshot
+//                    let u = x.key
+//                    let m = x.value as! [String:Any]
+//                    print("result key = \(u), result value = \(m)")
                     
-                    print("result key = \(u), result value = \(m)")
+                    let userName = response.childSnapshot(forPath: "username").value as! String
+                    let correctCount = response.childSnapshot(forPath: "correct_count").value as! Int
+                    let dateTime = response.childSnapshot(forPath: "date_time").value as! Double
+
+                    resultModelArray.append(ResultModel(userName: userName,
+                                                        correctCount: correctCount,
+                                                        dateTime: dateTime))
+                    
+                }
+                            resultModelArray.sort(by: {$0.correctCount > $1.correctCount})
+                for i in 0..<resultModelArray.count {
+                    print("userName = " + resultModelArray[i].userName
+                    + ", correctCount = " + String(resultModelArray[i].correctCount))
                 }
             })
+    }
+    
+    class ResultModel {
+        public private(set) var userName: String
+        public private(set) var correctCount: Int
+        public private(set) var dateTime: Double
+        
+        init(userName: String, correctCount: Int, dateTime: Double) {
+         self.userName = userName
+            self.correctCount = correctCount
+            self.dateTime = dateTime
+        }
     }
 }
