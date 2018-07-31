@@ -15,6 +15,8 @@ class ResultViewController: UIViewController {
     var fbRef:DatabaseReference!
     var gameId: String?
     
+    @IBOutlet weak var resultTV: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,8 +51,8 @@ class ResultViewController: UIViewController {
                             
                 for snap in snapshot.children {
                     let response = snap as! DataSnapshot
-//                    let u = x.key
-//                    let m = x.value as! [String:Any]
+//                    let u = response.key
+//                    let m = response.value as! [String:Any]
 //                    print("result key = \(u), result value = \(m)")
                     
                     let userName = response.childSnapshot(forPath: "username").value as! String
@@ -63,9 +65,12 @@ class ResultViewController: UIViewController {
                     
                 }
                             resultModelArray.sort(by: {$0.correctCount > $1.correctCount})
+                                    self.resultTV.text = ""
                 for i in 0..<resultModelArray.count {
                     print("userName = " + resultModelArray[i].userName
                     + ", correctCount = " + String(resultModelArray[i].correctCount))
+                    self.resultTV.text.append("userName = " + resultModelArray[i].userName
+                        + ", correctCount = " + String(resultModelArray[i].correctCount) + "\n")
                 }
             })
     }
