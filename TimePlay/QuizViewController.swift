@@ -16,35 +16,48 @@ class QuizViewController: UIViewController {
     var gameId: String?
     var userName: String?
     
+    var questionModelArray = [QuestionModel]()
+    var index: Int = 0
+    var points: Int = 0
+    
+    var responseArray = [String]()
+    
+    @IBOutlet weak var labelQuestion: UILabel!
+    @IBOutlet weak var optionOne: UILabel!
+    @IBOutlet weak var optionTwo: UILabel!
+    @IBOutlet weak var optionThree: UILabel!
+    @IBOutlet weak var optionFour: UILabel!
+    @IBOutlet weak var buttonOutlet: UIButton!
+    @IBOutlet weak var optionSegmentedControl: UISegmentedControl!
+    
+    @IBAction func returnSegmentValue(_ sender: UISegmentedControl) {
+        if(sender.selectedSegmentIndex == 0){
+            responseArray.append("a")
+            self.disableSegmentedControl()
+        } else if (sender.selectedSegmentIndex == 1){
+            responseArray.append("b")
+            self.disableSegmentedControl()
+        } else if(sender.selectedSegmentIndex == 2){
+            responseArray.append("c")
+            self.disableSegmentedControl()
+        } else if(sender.selectedSegmentIndex == 3){
+            responseArray.append("d")
+            self.disableSegmentedControl()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         self.fbRef = Database.database().reference()
         getQuestions()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        buttonOutlet.setTitle("Next", for: .normal)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
     func getQuestions() {
         self.fbRef.child("questions").observe(DataEventType.value, with: {
             (snapshot) in
-            
-            var questionModelArray = [QuestionModel]()
             
             for snap in snapshot.children {
                 let response = snap as! DataSnapshot
@@ -59,23 +72,66 @@ class QuizViewController: UIViewController {
                 let option4 = response.childSnapshot(forPath: "d").value as! String
                 let correctAnswer = response.childSnapshot(forPath: "answer").value as! String
                 
-                questionModelArray.append(QuestionModel(question: question, option1: option1, option2: option2, option3: option3, option4: option4, correctAnswer: correctAnswer))
+                self.questionModelArray.append(QuestionModel(question: question, option1: option1, option2: option2, option3: option3, option4: option4, correctAnswer: correctAnswer))
                 
             }
-            for i in 0..<questionModelArray.count {
-                print("question = " + questionModelArray[i].question
-                    + ", correctAnswer = " + questionModelArray[i].correctAnswer)
+            for i in 0..<self.questionModelArray.count {
+                print("question = " + self.questionModelArray[i].question
+                    + ", correctAnswer = " + self.questionModelArray[i].correctAnswer)
             }
+            self.updateQuestions()
         })
     }
     
+    func reEnableSegmentedControl(){
+        optionSegmentedControl.isUserInteractionEnabled = true
+        optionSegmentedControl.alpha = 1
+        optionSegmentedControl.selectedSegmentIndex = -1
+    }
+    
+    func disableSegmentedControl(){
+        optionSegmentedControl.isUserInteractionEnabled = false
+        optionSegmentedControl.alpha = 0.5
+    }
+    
     @IBAction func onClickSubmitAnswer(_ sender: Any) {
-        submitAnswer()
+        self.checkButtonIndex()
+        
+        self.reEnableSegmentedControl()
+        
+        if(self.index<10){
+            self.updateQuestions()
+        } else {
+            setScore()
+            submitAnswer()
+        }
+    }
+    
+    func setScore(){
+        for indexValue in 1...questionModelArray.count-1{
+                if(responseArray[indexValue]==questionModelArray[indexValue].correctAnswer){
+                    self.points = points + 1
+            }
+        }
+    }
+    
+    func checkButtonIndex(){
+        if(self.index == 9){
+            buttonOutlet.setTitle("Submit", for: .normal)
+        }
+    }
+    
+    func updateQuestions(){
+        self.labelQuestion.text = self.questionModelArray[index].question
+        self.optionOne.text = "A. "+self.questionModelArray[index].optionA
+        self.optionTwo.text = "B. "+self.questionModelArray[index].optionB
+        self.optionThree.text = "C. "+self.questionModelArray[index].optionC
+        self.optionFour.text = "D. "+self.questionModelArray[index].optionD
+        self.index = self.index + 1
     }
     
     func submitAnswer() {
-        let totalCorrectAnswers = arc4random_uniform(10) + 1;
-        let submitUserData = ["username": self.userName as Any , "correct_count": totalCorrectAnswers, "date_time": ServerValue.timestamp()] as [String : Any]
+        let submitUserData = ["username": self.userName as Any , "correct_count": points, "date_time": ServerValue.timestamp()] as [String : Any]
         print("gameid = " + self.gameId!)
         self.fbRef.child(self.gameId!).childByAutoId().setValue(submitUserData)
         self.performSegue(withIdentifier: "quizToResultIdentifier", sender: self)
@@ -87,7 +143,7 @@ class QuizViewController: UIViewController {
         let resultViewConroller = segue.destination as! ResultViewController
         resultViewConroller.gameId = self.gameId
     }
-    
+
     class QuestionModel {
         public private(set) var question: String
         public private(set) var optionA: String
