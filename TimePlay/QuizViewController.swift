@@ -20,8 +20,6 @@ class QuizViewController: UIViewController {
     var index: Int = 0
     var points: Int = 0
     
-    var responseArray = [String]()
-    
     @IBOutlet weak var labelQuestion: UILabel!
     @IBOutlet weak var optionOne: UILabel!
     @IBOutlet weak var optionTwo: UILabel!
@@ -32,16 +30,16 @@ class QuizViewController: UIViewController {
     
     @IBAction func returnSegmentValue(_ sender: UISegmentedControl) {
         if(sender.selectedSegmentIndex == 0){
-            responseArray.append("a")
+            self.questionModelArray[index-1].userAnswer = "a"
             self.disableSegmentedControl()
         } else if (sender.selectedSegmentIndex == 1){
-            responseArray.append("b")
+            self.questionModelArray[index-1].userAnswer = "b"
             self.disableSegmentedControl()
         } else if(sender.selectedSegmentIndex == 2){
-            responseArray.append("c")
+            self.questionModelArray[index-1].userAnswer = "c"
             self.disableSegmentedControl()
         } else if(sender.selectedSegmentIndex == 3){
-            responseArray.append("d")
+            self.questionModelArray[index-1].userAnswer = "d"
             self.disableSegmentedControl()
         }
     }
@@ -72,7 +70,7 @@ class QuizViewController: UIViewController {
                 let option4 = response.childSnapshot(forPath: "d").value as! String
                 let correctAnswer = response.childSnapshot(forPath: "answer").value as! String
                 
-                self.questionModelArray.append(QuestionModel(question: question, option1: option1, option2: option2, option3: option3, option4: option4, correctAnswer: correctAnswer))
+                self.questionModelArray.append(QuestionModel(question: question, option1: option1, option2: option2, option3: option3, option4: option4, correctAnswer: correctAnswer, userAnswer: ""))
                 
             }
             for i in 0..<self.questionModelArray.count {
@@ -109,7 +107,8 @@ class QuizViewController: UIViewController {
     
     func setScore(){
         for indexValue in 1...questionModelArray.count-1{
-                if(responseArray[indexValue]==questionModelArray[indexValue].correctAnswer){
+                if(questionModelArray[indexValue].correctAnswer ==
+                    questionModelArray[indexValue].userAnswer){
                     self.points = points + 1
             }
         }
@@ -151,15 +150,17 @@ class QuizViewController: UIViewController {
         public private(set) var optionC: String
         public private(set) var optionD: String
         public private(set) var correctAnswer: String
+        public public(set) var userAnswer: String?
         
         init(question: String, option1: String, option2: String,
-             option3: String, option4: String, correctAnswer: String) {
+             option3: String, option4: String, correctAnswer: String, userAnswer: String) {
             self.question = question
             self.optionA = option1
             self.optionB = option2
             self.optionC = option3
             self.optionD = option4
             self.correctAnswer = correctAnswer
+            self.userAnswer = userAnswer
         }
     }
 }
