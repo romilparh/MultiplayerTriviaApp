@@ -11,25 +11,19 @@ import Firebase
 import FirebaseDatabase
 
 class LoginViewController: UIViewController {
-    
-    // Need database to login here !!!
-    // Need a boolean to verify if the user is logged in and has remember me on so that the email and password is saved in UserDefaults and he or she doesn't need to enter it again, it just directly logs in the user
 
     @IBOutlet weak var eMail: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var rememberMe: UISwitch!
     
     var fbRef:DatabaseReference!
     var gameId: String?
+    var email: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         self.fbRef = Database.database().reference()
     }
     
-    // To toggle software keyboard when clicked outside the keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         self.view.endEditing(true)
@@ -38,8 +32,11 @@ class LoginViewController: UIViewController {
     @IBAction func loginUser(_ sender: UIButton) {
         if(eMail.text?.isEmpty)! {
             showAlertMessage(title: "Error", message: "Enter username")
-        } else {
+        } else if(isValidEmail(testStr: eMail.text!)) {
+            self.email = toLowerCaseEMail(email: eMail.text!)
             checkQuizTime()
+        } else{
+            showAlertMessage(title: "Error", message: "EMail Not Valid")
         }
     }
 
@@ -58,30 +55,24 @@ class LoginViewController: UIViewController {
                     self.showAlertMessage(title: "Game Error:", message: message)
                 }
             } else {
-                print("Error retrieving data") // snapshot value is nil
+                print("Error retrieving data")
             }
         })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         let quizViewConroller = segue.destination as! QuizViewController
         quizViewConroller.gameId = self.gameId
-        quizViewConroller.userName = self.eMail.text
+        quizViewConroller.userName = self.email
     }
     
     func showAlertMessage(title: String, message: String) {
-        //Creating UIAlertController and
-        //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (_) in }
         
         alertController.addAction(cancelAction)
         
-        //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
     }
 }

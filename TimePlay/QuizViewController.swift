@@ -139,7 +139,7 @@ class QuizViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let resultViewConroller = segue.destination as! ResultViewController
+        let resultViewConroller = segue.destination as! ResultTableViewController
         resultViewConroller.gameId = self.gameId
     }
 
