@@ -7,4 +7,16 @@ Technologies Used
 
 Data Validations are available within the application. 
 
-<img src="screenshots/emailScreen.png">
+Login Screen
+<img src="screenshots/emailScreen.png" width="400px">
+
+Email validation
+
+
+Question screen
+
+
+Answer screen
+
+
+Results page
