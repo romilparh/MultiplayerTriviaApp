@@ -57,12 +57,12 @@ class ResultTableViewController: UITableViewController {
             self.dateTime = dateTime
         }
     }
-    
     func resultObserver() {
         self.fbRef.child(self.gameId!)
             .queryOrdered(byChild: "correct_count")
             .observe(DataEventType.value, with: {
                 (snapshot) in
+                self.resultDictionary = [String]()
                 var resultModelArray = [ResultModel]()
                 
                 for snap in snapshot.children {
@@ -83,7 +83,7 @@ class ResultTableViewController: UITableViewController {
                 resultModelArray.sort(by: {$0.correctCount > $1.correctCount})
                 for i in 0..<resultModelArray.count {
                     self.resultDictionary.append(resultModelArray[i].userName
-                        + " (" + String(resultModelArray[i].correctCount)+")")
+                        + " (" + String(resultModelArray[i].correctCount)+") - " + String(Int(resultModelArray[i].dateTime/100000)))
                 }
                 self.tableView.reloadData()
             })
