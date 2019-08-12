@@ -5,7 +5,7 @@ Technologies Used
 1. Firebase by Google (Realtime online database implenmentation)
 2. iOS (Swift)
 
-Data Validations are available within the application. 
+Every imput is validated. In case of any invalid input, an error is shown. 
 
 Login Screen
 
